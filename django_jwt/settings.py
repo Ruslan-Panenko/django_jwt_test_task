@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-h4+$apt=7!1)+1bf*v2-ito^674b(0ik4ascj4=1htkx0jz=qs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -193,7 +193,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / 'static/'
-
+STATICFILES_DIRS = BASE_DIR / 'staticfiles/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
