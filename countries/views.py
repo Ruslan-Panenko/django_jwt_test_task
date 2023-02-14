@@ -1,11 +1,12 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import pandas as pd
 
-from countries.models import Country
-from countries.serializers.serializer import CountrySerializer
+from countries.models import Country, City
+from countries.serializers.serializer import CountrySerializer, CitySerializer
 
 
 class CountriesView(ListAPIView):
@@ -14,18 +15,10 @@ class CountriesView(ListAPIView):
     serializer_class = CountrySerializer
 
 
-# class CountryView(APIView):
-#     def get(self, request):
-#         countries = Country.objects.all()
-#         data = []
-#         for country in countries:
-#             country_dict = {
-#                 'id': country.id,
-#                 'name': country.name,
-#                 'iso2': country.iso2,
-#                 'iso3': country.iso3,
-#                 'cities': [{'id': city.id, 'name': city.name} for city in country.city_set.all()],
-#             }
-#             data.append(country_dict)
-#         return Response(data)
+class CityAPIView(ListAPIView):
+    serializer_class = CitySerializer
+    permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        country_id = self.kwargs.get('country_id')
+        return City.objects.filter(country_id=country_id)
